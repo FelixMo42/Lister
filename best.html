@@ -1,0 +1,37 @@
+<head>
+	<title>Lister</title>
+	<link href="index.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div id="models" hidden="true">
+		<div id="index" class="element">
+			<input id="text" type="text" style="border-right: 2px solid #009688;" readonly>
+		</div>
+	</div>
+	<!-- html -->
+	<hr><h1>Lister</h1><hr>
+	<div id="list"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+	<script>
+		firebase.initializeApp({
+			apiKey: "AIzaSyAyEn-izZU4tK9gGGR7Z_dXWOr4vnBd2rY",
+			authDomain: "list-34e26.firebaseapp.com",
+			databaseURL: "https://list-34e26.firebaseio.com",
+			projectId: "list-34e26",
+			storageBucket: "",
+			messagingSenderId: "571670784999"
+		});
+	</script>
+	<script>
+		firebase.database().ref("books").once("value").then( function(snapshot) {
+			var vals = snapshot.val();
+			for (var key in snapshot.val()) {
+				el = $("#index").clone();
+				el.find("#text").val( key + ". " + vals[key] );
+				el.find("#num").val( key );
+				$("#list").append( el );
+			}
+		});
+	</script>
+</body>

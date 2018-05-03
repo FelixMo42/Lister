@@ -1,0 +1,48 @@
+/* re define elements */
+h1 {
+	font-family: Cinzel;
+	font-size: 56px;
+	text-align: center;
+	margin: 0px;
+}
+button, input {
+	border: 2px solid #009688;
+}
+
+/* list elements */
+.element {
+	display: flex;
+	width: 100%;
+	margin-bottom: 5px;
+	border-right: 0px;
+}
+.element > input[type="text"] {
+	width: 100%;
+	display: flex;
+	flex-grow: 1;
+	flex-basis: 0;
+	flex-direction: column;
+	border-right: 0px;
+	padding: 5px;
+	height: 38px;
+}
+.bars {
+	flex-basis: 0;
+	display: flex;
+	flex-direction: column;
+}
+.bars > input:not(:last-child) {
+	border-bottom: 0px;
+}
+
+/* misc */
+.popup {
+	background-color: white;
+	padding: 5px;
+	border: 2px solid black;
+}
+.vl {
+ 	background-color: gray;
+ 	margin: 5px;
+ 	padding: 1px;
+}
