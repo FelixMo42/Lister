@@ -1,10 +1,10 @@
 <html>
 	<head>
 		<title>Lister</title>
-		<link href="index.css" rel="stylesheet" type="text/css" />
+		<link href="/index.css" rel="stylesheet" type="text/css" />
 
+		<!-- script imports -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://unpkg.com/page/page.js"></script>
 		<script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
 		<script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
 		<script src="http://rubaxa.github.io/Sortable/jquery.binding.js"></script>
@@ -20,17 +20,11 @@
 			});
 			var database = firebase.database();
 		</script>
+		<script src="/util/tack.js"></script>
 	</head>
 	<body>
-		<!-- models -->
-		<div id="models" hidden="true">
-			<div id="index" class="element">
-				<input id="text" type="text" placeholder="name" onchange="onEdit($(this.parentNode.parentNode))">
-				<div class="bars">
-					<input type="button" value="delete" onclick="delet($(this.parentNode.parentNode))">
-					<input type="button" value="sort" onclick="sort($(this.parentNode.parentNode))">
-				</div>
-			</div>
+		<!-- blueprints -->
+		<div id="models" class="blueprint">
 			<div id="popup" class="popup">
 				<p id="text">Which is better?</p>
 				<button id="book1"></button>
@@ -39,18 +33,53 @@
 			</div>
 		</div>
 		<!-- header -->
-		<hr>
-			<h1>Lister</h1>
-		<hr>
-		<!-- home -->
-		<p>hi</p>
-		<!-- javascript -->
-		<script>
-			page('/about', function(){
-				console.log("about");
-			});
-		</script>
-		<!-- <script src="index.js"></script> -->
+		<hr />
+			<h1>Lister<span style="font-size: 15px;">v0.01</span></h1>
+		<hr />
+			<input type="button" value="profile" onclick="tack.goto('/')"/>
+			<input type="button" value="list" onclick="tack.goto('/list')"/>
+			<input type="button" value="best" onclick="tack.goto('/best')"/>
+		<hr />
+		<!-- profile -->
+		<script src="/pages/profile.js"></script>
+		<div page="/profile" loaded="profile.load()">
+			<div id="rank"></div>
+		</div>
+		<!-- list -->
+		<script src="/pages/list.js"></script>
+		<div page="/list" loaded="list.load()" closed="list.upload()">
+			<div id="index" class="element blueprint">
+				<input id="text" type="text" placeholder="name">
+				<div class="bars">
+					<input id="delet" type="button" value="delete">
+					<input id="sort" type="button" value="sort">
+				</div>
+			</div>
+
+			<div id="list"></div>
+
+			<div class="footer">
+				<hr />
+				<input type="button" value="add" onclick="list.new()"/>
+				<input type="button" value="sort all" onclick="list.sort.all()"/>
+				<input type="button" value="sort new" onclick="list.sort.new()"/>
+			</div>
+		</div>
+		<!-- best -->
+		<script src="/pages/best.js"></script>
+		<div page="/best" loaded="best.load()">
+			<div id="rankIndex" class="element blueprint">
+				<input id="text" type="text" readonly>
+				<div class="bars">
+					<input id="add" type="button" value="add">
+					<input id="info" type="button" value="info">
+				</div>
+			</div>
+
+			<div id="ranking"></div>
+		</div>
+		<!-- js -->
+		<script src="index.js"></script>
 		<!-- auto generated -->
 	</body>
 </html>

@@ -8,6 +8,9 @@ h1 {
 button, input {
 	border: 2px solid #009688;
 }
+body {
+    padding-bottom: 34px;
+}
 
 /* list elements */
 .element {
@@ -35,6 +38,18 @@ button, input {
 	border-bottom: 0px;
 }
 
+/* footer */
+.footer {
+	position: fixed;
+	bottom: 0;
+	background-color: white;
+	width: calc(100% - 16px);
+	padding-bottom: 8px;
+}
+.footer hr {
+	margin-top: 0px;
+}
+
 /* misc */
 .popup {
 	background-color: white;
@@ -45,4 +60,7 @@ button, input {
  	background-color: gray;
  	margin: 5px;
  	padding: 1px;
+}
+.blueprint {
+	display: none;
 }
