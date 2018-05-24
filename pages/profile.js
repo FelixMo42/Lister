@@ -1,7 +1,7 @@
-var profile = {}
+var login = {}
 
 // tack
 
-profile.load = function() {
-    
+login.load = function() {
+
 }

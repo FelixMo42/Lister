@@ -1,8 +1,12 @@
 tack = {};
 
+tack.init = false;
+
 tack.loaded = {};
 
 tack.goto = function(path) {
+    tack.init = true;
+
     history.pushState({ foo: "bar" }, "", path);
 
     eval($("[page='"+tack.page+"']").attr("closed"));
@@ -21,5 +25,7 @@ tack.goto = function(path) {
 }
 
 $(document).ready(function() {
-    tack.goto(window.location.pathname);
+    if (!tack.init) {
+        tack.goto(window.location.pathname);
+    }
 });

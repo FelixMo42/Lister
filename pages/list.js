@@ -13,12 +13,13 @@ list.new = function(name, init) {
 	var el = $("#index").clone();
     el.removeClass("blueprint");
 	el.attr("data-id", list.uid);
-    list.uid = list.uid + 1;
+	list.uid = list.uid + 1;
 
     el.find("#text").val(name);
 	el.find("#text").change(function() {
 		list.onEdit(el);
 	});
+	autoFill(el.find("#text"));
 	el.find("#sort").click(function() {
         list.sort.item(el);
     });
@@ -155,6 +156,7 @@ list.save = function() {
 }
 
 list.upload = function() {
+	if (!user) {return;}
     if (list.edited) {
 		database.ref(user).set(list.updates);
 	}
@@ -164,12 +166,12 @@ list.upload = function() {
 // tack
 
 list.load = function() {
-    database.ref(user).once("value").then( function(snapshot) {
-    	var vals = snapshot.val();
-    	for (var key in snapshot.val()) {
-    		list.new(vals[key], true);
-    	}
-    });
+	database.ref(user).once("value").then( function(snapshot) {
+		var vals = snapshot.val();
+		for (var key in snapshot.val()) {
+			list.new(vals[key], true);
+		}
+	});
 
 	window.onbeforeunload = function() {
     	list.upload();
@@ -179,7 +181,6 @@ list.load = function() {
     $("#list").sortable( {
     	onUpdate: list.onMove
     } );
-
 
     $("#popup").popup();
 }
