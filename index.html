@@ -1,138 +1,117 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Lister</title>
-        <link href="/index.css" rel="stylesheet" type="text/css" />
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Lister</title>
+		<link href="/index.css" rel="stylesheet" type="text/css" />
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-        
-        <script>
-            firebase.initializeApp({
-                apiKey: "AIzaSyAyEn-izZU4tK9gGGR7Z_dXWOr4vnBd2rY",
-                authDomain: "list-34e26.firebaseapp.com",
-                databaseURL: "https://list-34e26.firebaseio.com",
-                projectId: "list-34e26",
-                storageBucket: "",
-                messagingSenderId: "571670784999"
-            });
-            var database = firebase.database();
-            var auth = firebase.auth();
-            var provider = new firebase.auth.GoogleAuthProvider();
-        </script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+		
+		<script>
+			firebase.initializeApp({
+				apiKey: "AIzaSyAyEn-izZU4tK9gGGR7Z_dXWOr4vnBd2rY",
+				authDomain: "list-34e26.firebaseapp.com",
+				databaseURL: "https://list-34e26.firebaseio.com",
+				projectId: "list-34e26",
+				storageBucket: "",
+				messagingSenderId: "571670784999"
+			});
+			var database = firebase.database();
+			var auth = firebase.auth();
+			var provider = new firebase.auth.GoogleAuthProvider();
+		</script>
 
-        <script src="/util/sortable/main.js"></script>
-        <script src="/util/sortable/jquery.js"></script>
-        <script src="/util/autoFill.js"></script>
-        <script src="/util/tack.js"></script>
-    </head>
-    <body>
-        <!-- blueprints -->
-        <div id="models" class="blueprint">
-            <div id="popup" class="popup">
-                <p id="text">Which is better?</p>
-                <button id="book1"></button><button id="book2"></button><button id="equal">equal</button>
-            </div>
-        </div>
-        <!-- header -->
-        <hr />
-            <h1>Lister<span style="font-size: 15px;">v0.03</span></h1>
-        <hr />
-            <input type="button" value="profile" onclick="tack.goto('/')"/><input type="button" value="my list" onclick="tack.goto('/list')"/><input type="button" value="best" onclick="tack.goto('/best')"/><input type="text" style="padding-bottom: 2" placeholder="search"/>
-        <hr />
-        <!-- profile -->
-        <script src="/pages/profile.js"></script>
-        <div page="/profile" loaded="profile.load()">
-            <div id="rank"></div>
-        </div>
-        <!-- list -->
-        <script src="/pages/list.js"></script>
-        <div page="/list" loaded="list.load()" closed="list.upload()">
-            <div id="index" class="element blueprint">
-                <div class="autocomplete">
-                    <input autocomplete="off" id="text" type="text" placeholder="Title of Book or Series">
-                </div>
-                <div class="bars">
-                    <input id="delet" type="button" value="delete">
-                    <input id="sort" type="button" value="sort">
-                </div>
-            </div>
+		<script src="/util/sortable/main.js"></script>
+		<script src="/util/sortable/jquery.js"></script>
+		<script src="/util/autoFill.js"></script>
+		<script src="/util/tack.js"></script>
+	</head>
+	<body>
+		<!-- blueprints -->
+		<div id="models" class="blueprint">
+			<div id="popup" class="popup">
+				<p id="text">Which is better?</p>
+				<button id="book1"></button><button id="book2"></button><button id="equal">equal</button>
+			</div>
+		</div>
+		<!-- header -->
+		<hr />
+			<h1>Lister<span style="font-size: 15px;">v0.02</span></h1>
+		<hr />
+			<input type="button" value="profile" onclick="tack.goto('/profile')"/><input type="button" value="my list" onclick="tack.goto('/list')"/><input type="button" value="best" onclick="tack.goto('/best')"/><input type="text" style="padding-bottom: 2" placeholder="search"/>
+		<hr />
+		<!-- profile -->
+		<script src="/pages/profile.js"></script>
+		<div page="/profile" loaded="profile.load()">
+			<h3>account</h3>
+			<input type="button" value="logout"/><input type="button" value="delete"/>
+			<h3>public info</h3>
+			public
+			<label class="switch">
+				<input type="checkbox" />
+			 	<span class="slider round"></span>
+			</label>
+			<input placeholder="name" type="text"/>
+		</div>
+		<!-- list -->
+		<script src="/pages/list.js"></script>
+		<div page="/list" loaded="list.load()" closed="list.upload()">
+			<div id="index" class="element blueprint">
+				<div class="autocomplete">
+					<input autocomplete="off" id="text" type="text" placeholder="Title of Book or Series">
+				</div>
+				<div class="bars">
+					<input id="delet" type="button" value="delete">
+					<input id="sort" type="button" value="sort">
+				</div>
+			</div>
 
-            <div id="list"></div>
+			<div id="list"></div>
 
-            <div class="footer">
-                <hr />
-                <input type="button" value="add" onclick="list.new()"/><input type="button" value="sort all" onclick="list.sort.all()"/><input type="button" value="sort new" onclick="list.sort.new()"/>
-            </div>
-        </div>
-        <!-- best -->
-        <script src="/pages/best.js"></script>
-        <div page="/best" loaded="best.load()">
-            <div id="rankIndex" class="element blueprint">
-                <div>
-                    <input id="text" type="text" readonly>
-                </div>
-                <div class="bars">
-                    <input id="add" type="button" value="add">
-                    <input id="info" type="button" value="info">
-                </div>
-            </div>
+			<div class="footer">
+				<hr />
+				<input type="button" value="add" onclick="list.new()"/><input type="button" value="sort all" onclick="list.sort.all()"/><input type="button" value="sort new" onclick="list.sort.new()"/>
+			</div>
+		</div>
+		<!-- best -->
+		<script src="/pages/best.js"></script>
+		<div page="/best" loaded="best.load()">
+			<div id="rankIndex" class="element blueprint">
+				<div>
+					<input id="text" type="text" readonly>
+				</div>
+				<div class="bars">
+					<input id="add" type="button" value="add">
+					<input id="info" type="button" value="info">
+				</div>
+			</div>
 
-            <div id="ranking"></div>
-        </div>
-        <!-- login -->
-        <div page="/login" class="centered">
-            <script>
-                login = {}
-                login.google = function() {
-                    auth.signInWithPopup(provider).then(function(result) {
-                        var token = result.credential.accessToken;
-                        var user = result.user;
-                    }).catch(function(error) {
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        alert(errorMessage)
-                        var email = error.email;
-                        var credential = error.credential;
-                    });
-                }
-            </script>
-            <input type="button" value="Sign In with Google" onclick="login.google()"/>
-        </div>
-        <!-- js -->
-        <script>
-            var user = false;
-
-            tack.init = true;
-            tack.path = window.location.pathname;
-            tack.goto("");
-
-            auth.onAuthStateChanged(function(usr) {
-                if (usr) {
-                    user = "users/" + usr.uid;
-                    /*
-                        // transfer over old users
-                        var old = "0OaHmyB9djfuKc6VUzyWNk8gd7w1"
-                        database.ref("users/" + old).once("value").then( function(snapshot) {
-                            var vals = snapshot.val();
-                            database.ref(user).set(vals);
-                        });
-                    //*/
-                    tack.goto(tack.path);
-                } else {
-                    tack.goto("/login");
-                }
-            });
-
-            $("[onclick]").each( (i, button) => {
-                var func = $(button).attr("onclick");
-                $(button).click( () => { eval( func) } );
-                $(button).removeAttr("onclick");
-            } );
-            </script>
-        <!-- auto generated -->
-    </body>
+			<div id="ranking"></div>
+		</div>
+		<!-- login -->
+		<div page="/login" class="centered">
+			<script>
+				login = {}
+				login.google = function() {
+					auth.signInWithPopup(provider).then(function(result) {
+						var token = result.credential.accessToken;
+						var user = result.user;
+					}).catch(function(error) {
+						var errorCode = error.code;
+						var errorMessage = error.message;
+						alert(errorMessage)
+						var email = error.email;
+						var credential = error.credential;
+					});
+				}
+			</script>
+			<input type="button" value="Sign in with Google" onclick="login.google()"/>
+		</div>
+		<!-- js -->
+		<script src="/index.js"></script>
+		<!-- auto generated -->
+	</body>
 </html>
