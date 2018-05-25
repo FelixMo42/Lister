@@ -165,11 +165,24 @@ list.upload = function() {
 
 // tack
 
+list.open = function() {
+	if (!user) {
+		tack.path = "/list"
+		tack.goto("/login")
+		return false;
+	}
+	return true;
+}
+
 list.load = function() {
-	database.ref(user).once("value").then( function(snapshot) {
-		var vals = snapshot.val();
-		for (var key in snapshot.val()) {
-			list.new(vals[key], true);
+	auth.onAuthStateChanged(function(usr) {
+		if (usr) {
+			database.ref("users/" + usr.uid).once("value").then( function(snapshot) {
+				var vals = snapshot.val();
+				for (var key in snapshot.val()) {
+					list.new(vals[key], true);
+				}
+			});
 		}
 	});
 

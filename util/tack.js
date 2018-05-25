@@ -19,12 +19,14 @@ tack.goto = function(path) {
         tack.loaded[path] = true;
     }
 
-    eval($("[page='"+path+"']").attr("opened"));
+    var suc = eval($("[page='"+path+"']").attr("opened"));
+    if (suc === false) {return;}
 
     tack.page = path;
 }
 
 $(document).ready(function() {
+    $("[page]").hide();
     if (!tack.init) {
         tack.goto(window.location.pathname);
     }

@@ -45,20 +45,20 @@
 		<hr />
 		<!-- profile -->
 		<script src="/pages/profile.js"></script>
-		<div page="/profile" loaded="profile.load()">
+		<div page="/profile" opened="profile.open()">
 			<h3>account</h3>
-			<input type="button" value="logout"/><input type="button" value="delete"/>
+			<input type="button" value="logout" onclick="profile.logout()"/><input type="button" value="delete"/>
 			<h3>public info</h3>
 			public
 			<label class="switch">
-				<input type="checkbox" />
-			 	<span class="slider round"></span>
+                <input type="checkbox"/>
+				<span class="slider round"></span>
 			</label>
 			<input placeholder="name" type="text"/>
 		</div>
 		<!-- list -->
 		<script src="/pages/list.js"></script>
-		<div page="/list" loaded="list.load()" closed="list.upload()">
+		<div page="/list" loaded="list.load()" opened="list.open()" closed="list.upload()">
 			<div id="index" class="element blueprint">
 				<div class="autocomplete">
 					<input autocomplete="off" id="text" type="text" placeholder="Title of Book or Series">
@@ -91,25 +91,11 @@
 
 			<div id="ranking"></div>
 		</div>
-		<!-- login -->
+		<!-- outher pages -->
 		<div page="/login" class="centered">
-			<script>
-				login = {}
-				login.google = function() {
-					auth.signInWithPopup(provider).then(function(result) {
-						var token = result.credential.accessToken;
-						var user = result.user;
-					}).catch(function(error) {
-						var errorCode = error.code;
-						var errorMessage = error.message;
-						alert(errorMessage)
-						var email = error.email;
-						var credential = error.credential;
-					});
-				}
-			</script>
-			<input type="button" value="Sign in with Google" onclick="login.google()"/>
+			<input type="button" value="Sign in with Google" onclick="profile.login.google()"/>
 		</div>
+        <div page="" opened="tack.goto('/list')"></div>
 		<!-- js -->
 		<script src="/index.js"></script>
 		<!-- auto generated -->

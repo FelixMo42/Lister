@@ -1,23 +1,27 @@
 var user = false;
 
 tack.init = true;
-tack.path = window.location.pathname;
-tack.goto("");
+tack.path = false
+
+$("[page]").hide();
 
 auth.onAuthStateChanged(function(usr) {
     if (usr) {
         user = "users/" + usr.uid;
-        /*
-            // transfer over old users
-            var old = "0OaHmyB9djfuKc6VUzyWNk8gd7w1"
-            database.ref("users/" + old).once("value").then( function(snapshot) {
-                var vals = snapshot.val();
-                database.ref(user).set(vals);
-            });
-        //*/
-        tack.goto(tack.path);
+        if (tack.path) {
+            tack.goto(tack.path);
+            tack.path = false;
+        } else {
+            console.log("hi");
+            tack.goto(window.location.pathname);
+        }
     } else {
-        tack.goto("/login");
+        if (tack.path) {
+            tack.goto(tack.path);
+        } else {
+            console.log("hi");
+            tack.goto(window.location.pathname);
+        }
     }
 });
 
