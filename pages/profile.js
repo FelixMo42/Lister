@@ -23,6 +23,14 @@ profile.logout = function() {
 	});
 }
 
+profile.publicize = function(name) {
+	database.ref("public/" + auth.user.uid).set(name);
+}
+
+profile.unpublicize = function() {
+	database.ref("public/" + auth.user.uid).delete();
+}
+
 // tack
 
 profile.open = function() {

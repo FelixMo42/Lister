@@ -56,7 +56,7 @@ function autoFill(inp, arr) {
     }
     function removeActive(x) {
         for (var i = 0; i < x.length; i++) {
-        x[i].classList.remove("autocomplete-active");
+            x[i].classList.remove("autocomplete-active");
         }
     }
     function closeAllLists(elmnt) {

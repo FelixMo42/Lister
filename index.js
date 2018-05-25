@@ -12,7 +12,6 @@ auth.onAuthStateChanged(function(usr) {
             tack.goto(tack.path);
             tack.path = false;
         } else {
-            console.log("hi");
             tack.goto(window.location.pathname);
         }
     } else {
@@ -24,9 +23,3 @@ auth.onAuthStateChanged(function(usr) {
         }
     }
 });
-
-$("[onclick]").each( (i, button) => {
-    var func = $(button).attr("onclick");
-    $(button).click( () => { eval( func) } );
-    $(button).removeAttr("onclick");
-} );

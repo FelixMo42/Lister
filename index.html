@@ -39,7 +39,7 @@
 		</div>
 		<!-- header -->
 		<hr />
-			<h1>Lister<span style="font-size: 15px;">v0.02</span></h1>
+			<h1>Lister<span style="font-size: 15px;">v0.05</span></h1>
 		<hr />
 			<input type="button" value="profile" onclick="tack.goto('/profile')"/><input type="button" value="my list" onclick="tack.goto('/list')"/><input type="button" value="best" onclick="tack.goto('/best')"/><input type="text" style="padding-bottom: 2" placeholder="search"/>
 		<hr />
@@ -51,7 +51,7 @@
 			<h3>public info</h3>
 			public
 			<label class="switch">
-                <input type="checkbox"/>
+                <input type="checkbox" onclick="console.log(this)"/>
 				<span class="slider round"></span>
 			</label>
 			<input placeholder="name" type="text"/>
