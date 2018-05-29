@@ -192,7 +192,9 @@ list.load = function() {
     }
 
     $("#list").sortable( {
-    	onUpdate: list.onMove
+    	onUpdate: list.onMove,
+    	handle: ".handle",
+    	filter: ".autocomplete-list"
     } );
 
     $("#popup").popup();

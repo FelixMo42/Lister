@@ -23,12 +23,24 @@ profile.logout = function() {
 	});
 }
 
+profile.public = false;
+
+profile.flip = function(cheaked) {
+	profile.public = cheaked;
+	if (!cheaked) {
+		profile.unpublicize();
+	}
+}
+
 profile.publicize = function(name) {
-	database.ref("public/" + auth.user.uid).set(name);
+	//console.log(profile.public)
+	if (!profile.public) { return; }
+	//console.log(name)
+	database.ref("public/" + auth.currentUser.uid).set(name);
 }
 
 profile.unpublicize = function() {
-	database.ref("public/" + auth.user.uid).delete();
+	database.ref("public/" + auth.currentUser.uid).delete();
 }
 
 // tack
@@ -40,4 +52,10 @@ profile.open = function() {
 		return false;
 	}
 	return true;
+}
+
+profile.load = function() {
+	$("#profileName").change( () => {
+		profile.publicize($("#profileName").val());
+	} );
 }

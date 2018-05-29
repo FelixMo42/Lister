@@ -45,25 +45,25 @@
 		<hr />
 		<!-- profile -->
 		<script src="/pages/profile.js"></script>
-		<div page="/profile" opened="profile.open()">
+		<div page="/profile" loaded="profile.load()" opened="profile.open()">
 			<h3>account</h3>
 			<input type="button" value="logout" onclick="profile.logout()"/><input type="button" value="delete"/>
 			<h3>public info</h3>
 			public
 			<label class="switch">
-                <input type="checkbox" onclick="console.log(this)"/>
+                <input type="checkbox" onclick="profile.flip(this.checked)"/>
 				<span class="slider round"></span>
 			</label>
-			<input placeholder="name" type="text"/>
+			<input placeholder="name" type="text" id="profileName"/>
 		</div>
 		<!-- list -->
         <script src="/pages/list.js"></script>
 		<div page="/list" loaded="list.load()" opened="list.open()" closed="list.upload()">
 			<div id="index" class="element blueprint">
 				<div class="autocomplete">
-					<input autocomplete="off" id="text" type="text" placeholder="Title of Book or Series">
+					<input autocomplete="off" id="text" class="handle" type="text" placeholder="Title of Book or Series">
 				</div>
-				<div class="bars">
+				<div class="bars handle">
 					<input id="delet" type="button" value="delete">
 					<input id="sort" type="button" value="sort">
 				</div>
