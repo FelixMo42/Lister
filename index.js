@@ -18,8 +18,15 @@ auth.onAuthStateChanged(function(usr) {
         if (tack.path) {
             tack.goto(tack.path);
         } else {
-            console.log("hi");
             tack.goto(window.location.pathname);
         }
     }
 });
+
+$("[onclick]").each( (i, button) => {
+    var func = $(button).attr("onclick");
+    if (!func.includes("this")) {
+        $(button).click( () => { eval(func) } );
+        $(button).removeAttr("onclick");
+    }
+} );

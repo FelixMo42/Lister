@@ -1,10 +1,10 @@
-var list = {};
+list = {};
 
 //varibles
 
 list.uid = 0;
 list.updates = [];
-list.new = {};
+list.news = {};
 list.edited = false;
 
 // interface
@@ -112,7 +112,7 @@ list.sort.new = function() {
 	var arr = ["-1"];
 	var sor = $("#list").sortable("toArray", {attribute: "value"});
 
-	for (var n in list.new) {
+	for (var n in list.news) {
 		arr[arr.length] = n;
 		sor.splice(sor.indexOf(n), 1);
 	}
@@ -128,11 +128,11 @@ list.onAdd = function(item) {
 	if (tack.page == "/list") {
 		$("html, body").animate({ scrollTop: $(document).height() }, $(document).height());
 	}
-	list.new[item.attr("data-id")] = item.attr("data-id");
+	list.news[item.attr("data-id")] = item.attr("data-id");
 }
 
 list.onMove = function(evt) {
-	delete list.new[$(evt.item).attr("data-id")];
+	delete list.news[$(evt.item).attr("data-id")];
 	list.save();
 }
 
@@ -141,7 +141,7 @@ list.onEdit = function(item) {
 }
 
 list.onRemove = function(item) {
-	delete list.new[item.attr("data-id")];
+	delete list.news[item.attr("data-id")];
 	list.save();
 }
 

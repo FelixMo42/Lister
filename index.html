@@ -57,7 +57,7 @@
 			<input placeholder="name" type="text"/>
 		</div>
 		<!-- list -->
-		<script src="/pages/list.js"></script>
+        <script src="/pages/list.js"></script>
 		<div page="/list" loaded="list.load()" opened="list.open()" closed="list.upload()">
 			<div id="index" class="element blueprint">
 				<div class="autocomplete">
@@ -73,7 +73,9 @@
 
 			<div class="footer">
 				<hr />
-				<input type="button" value="add" onclick="list.new()"/><input type="button" value="sort all" onclick="list.sort.all()"/><input type="button" value="sort new" onclick="list.sort.new()"/>
+				<input type="button" value="add" onclick="list.new()"/>
+                <input type="button" value="sort all" onclick="list.sort.all()"/>
+                <input type="button" value="sort new" onclick="list.sort.new()"/>
 			</div>
 		</div>
 		<!-- best -->
@@ -92,10 +94,21 @@
 			<div id="ranking"></div>
 		</div>
 		<!-- outher pages -->
-		<div page="/login" class="centered">
+        <script>
+            rederect = function() {
+                if (user) {
+                    if (tack.path) {
+                        tack.goto(tack.path)
+                    } else {
+                        tack.goto("/list")
+                    }
+                }
+            }
+        </script>
+		<div page="/login" class="centered" opened="rederect()">
 			<input type="button" value="Sign in with Google" onclick="profile.login.google()"/>
 		</div>
-        <div page="" opened="tack.goto('/list')"></div>
+        <div page="/" opened="tack.goto('/list')"></div>
 		<!-- js -->
 		<script src="/index.js"></script>
 		<!-- auto generated -->
