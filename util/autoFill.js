@@ -1,15 +1,11 @@
-var books = [];
-
-database.ref("books").once("value").then( function(snapshot) {
-    books = Object.values(snapshot.val())
-    books.unshift(books.shift());
-})
-
-function autoFill(inp, arr) {
+function autoFill(inp, arrName, clickCallback) {
     inp = $(inp).get(0);
     var currentFocus;
+    var arrName = arrName;
+    var clickCallback = clickCallback;
     inp.addEventListener("input", function(e) {
         var a, b, i, val = this.value;
+        var arr = window[arrName] || [];
         closeAllLists();
         if (!val) { return false;}
         currentFocus = -1;
@@ -17,13 +13,16 @@ function autoFill(inp, arr) {
         a.setAttribute("id", this.id + "autocomplete-list");
         a.setAttribute("class", "autocomplete-items");
         this.parentNode.appendChild(a);
-        for (i = 0; i < books.length; i++) {
-            if (books[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+        for (i = 0; i < arr.length; i++) {
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
                 b = document.createElement("DIV");
-                b.innerHTML = "<strong>" + books[i].substr(0, val.length) + "</strong>";
-                b.innerHTML += books[i].substr(val.length);
-                b.innerHTML += "<input type='hidden' value='" + books[i] + "'>";
+                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                 b.addEventListener("click", function(e) {
+                    if (clickCallback) {
+                        clickCallback(this.getElementsByTagName("input")[0].value);
+                    }
                     inp.value = this.getElementsByTagName("input")[0].value;
                     closeAllLists();
                 });
@@ -71,3 +70,38 @@ function autoFill(inp, arr) {
         closeAllLists(e.target);
     });
 }
+
+//books
+
+var books = [];
+
+database.ref("books").once("value").then( function(snapshot) {
+    books = Object.values(snapshot.val())
+    books.unshift(books.shift());
+})
+
+//users
+
+function swap(json){
+    var ret = {};
+    for(var key in json){
+        ret[json[key]] = key;
+    }
+    return ret;
+}
+
+var users = {};
+var usersList = [];
+
+database.ref("public").once("value").then( function(snapshot) {
+    users = snapshot.val()
+    usersList = Object.values(users)
+    usersList.unshift(usersList.shift());
+    users = swap(users)
+});
+
+$(document).ready(function() {
+    autoFill($("#searchBar"), "usersList", function(name) {
+        user.goto(name);
+    });
+});

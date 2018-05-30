@@ -33,9 +33,7 @@ profile.flip = function(cheaked) {
 }
 
 profile.publicize = function(name) {
-	//console.log(profile.public)
 	if (!profile.public) { return; }
-	//console.log(name)
 	database.ref("public/" + auth.currentUser.uid).set(name);
 }
 
@@ -46,7 +44,7 @@ profile.unpublicize = function() {
 // tack
 
 profile.open = function() {
-	if (!user) {
+	if (!auth.currentUser) {
 		tack.path = "/profile"
 		tack.goto("/login")
 		return false;

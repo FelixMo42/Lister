@@ -1,24 +1,22 @@
-var user = false;
-
 tack.init = true;
-tack.path = false
+tack.path = false;
+tack.add = window.location.href.split('?')[1];
 
 $("[page]").hide();
 
 auth.onAuthStateChanged(function(usr) {
     if (usr) {
-        user = "users/" + usr.uid;
         if (tack.path) {
-            tack.goto(tack.path);
+            tack.goto(tack.path, tack.add);
             tack.path = false;
         } else {
-            tack.goto(window.location.pathname);
+            tack.goto(window.location.pathname, tack.add);
         }
     } else {
         if (tack.path) {
-            tack.goto(tack.path);
+            tack.goto(tack.path, tack.add);
         } else {
-            tack.goto(window.location.pathname);
+            tack.goto(window.location.pathname, tack.add);
         }
     }
 });

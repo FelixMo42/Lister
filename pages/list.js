@@ -1,6 +1,6 @@
 list = {};
 
-//varibles
+// varibles
 
 list.uid = 0;
 list.updates = [];
@@ -11,26 +11,26 @@ list.edited = false;
 
 list.new = function(name, init) {
 	var el = $("#index").clone();
-    el.removeClass("blueprint");
+	el.removeClass("blueprint");
 	el.attr("data-id", list.uid);
 	list.uid = list.uid + 1;
 
-    el.find("#text").val(name);
+	el.find("#text").val(name);
 	el.find("#text").change(function() {
 		list.onEdit(el);
 	});
-	autoFill(el.find("#text"));
+	autoFill(el.find("#text"), "books");
 	el.find("#sort").click(function() {
-        list.sort.item(el);
-    });
-    el.find("#delet").click(function() {
-        list.delet(el);
-    });
+		list.sort.item(el);
+	});
+	el.find("#delet").click(function() {
+		list.delet(el);
+	});
 
 	$("#list").sortable("widget").append( el );
 
-    if (!init) {
-        list.onAdd( el );
+	if (!init) {
+		list.onAdd( el );
 	}
 }
 
@@ -156,17 +156,17 @@ list.save = function() {
 }
 
 list.upload = function() {
-	if (!user) {return;}
-    if (list.edited) {
-		database.ref(user).set(list.updates);
+	if (!auth.currentUser) {return;}
+	if (list.edited) {
+		database.ref(auth.currentUser).set(list.updates);
 	}
-    list.edited = false;
+	list.edited = false;
 }
 
 // tack
 
 list.open = function() {
-	if (!user) {
+	if (!auth.currentUser) {
 		tack.path = "/list"
 		tack.goto("/login")
 		return false;
@@ -187,15 +187,15 @@ list.load = function() {
 	});
 
 	window.onbeforeunload = function() {
-    	list.upload();
-    	return null;
-    }
+		list.upload();
+		return null;
+	}
 
-    $("#list").sortable( {
-    	onUpdate: list.onMove,
-    	handle: ".handle",
-    	filter: ".autocomplete-list"
-    } );
+	$("#list").sortable( {
+		onUpdate: list.onMove,
+		handle: ".handle",
+		filter: ".autocomplete-list"
+	} );
 
-    $("#popup").popup();
+	$("#popup").popup();
 }

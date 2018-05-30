@@ -4,10 +4,14 @@ tack.init = false;
 
 tack.loaded = {};
 
-tack.goto = function(path) {
+tack.goto = function(path, add) {
     tack.init = true;
-
-    history.pushState({foo: "bar"}, "", path);
+    
+    if (add) {
+        history.pushState({foo: "bar"}, "", path + "?" + add);
+    } else {
+        history.pushState({foo: "bar"}, "", path);
+    }
 
     eval($("[page='"+tack.page+"']").attr("closed"));
 

@@ -41,7 +41,7 @@
 		<hr />
 			<h1>Lister<span style="font-size: 15px;">v0.05</span></h1>
 		<hr />
-			<input type="button" value="profile" onclick="tack.goto('/profile')"/><input type="button" value="my list" onclick="tack.goto('/list')"/><input type="button" value="best" onclick="tack.goto('/best')"/><input type="text" style="padding-bottom: 2" placeholder="search"/>
+			<input type="button" value="profile" onclick="tack.goto('/profile')"/><input type="button" value="my list" onclick="tack.goto('/list')"/><input type="button" value="best" onclick="tack.goto('/best')"/><span class="autocomplete"><input autocomplete="off" type="text" id="searchBar" placeholder="search"/></span>
 		<hr />
 		<!-- profile -->
 		<script src="/pages/profile.js"></script>
@@ -55,6 +55,11 @@
 				<span class="slider round"></span>
 			</label>
 			<input placeholder="name" type="text" id="profileName"/>
+		</div>
+		<!-- user -->
+		<script src="/pages/user.js"></script>
+		<div page="/user" opened="user.open()">
+			<div id="userList"></div>
 		</div>
 		<!-- list -->
         <script src="/pages/list.js"></script>
