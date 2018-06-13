@@ -158,7 +158,7 @@ list.save = function() {
 list.upload = function() {
 	if (!auth.currentUser) {return;}
 	if (list.edited) {
-		database.ref(auth.currentUser).set(list.updates);
+		database.ref("users/"+auth.currentUser.uid).set(list.updates);
 	}
 	list.edited = false;
 }

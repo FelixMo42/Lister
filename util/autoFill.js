@@ -1,13 +1,14 @@
-function autoFill(inp, arrName, clickCallback) {
+function autoFill(inp, arrName, clickCallback, emty) {
     inp = $(inp).get(0);
     var currentFocus;
     var arrName = arrName;
     var clickCallback = clickCallback;
-    inp.addEventListener("input", function(e) {
+    var emty = emty;
+    var open = function(e) {
         var a, b, i, val = this.value;
         var arr = window[arrName] || [];
         closeAllLists();
-        if (!val) { return false;}
+        if (!emty && !val) { return false;}
         currentFocus = -1;
         a = document.createElement("DIV");
         a.setAttribute("id", this.id + "autocomplete-list");
@@ -29,9 +30,13 @@ function autoFill(inp, arrName, clickCallback) {
                 a.appendChild(b);
             }
         }
-    });
+    }
+    inp.addEventListener("input", open);
+    if (emty) {
+        inp.addEventListener("focus", open);
+    }
     inp.addEventListener("keydown", function(e) {
-    var x = document.getElementById(this.id + "autocomplete-list");
+        var x = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
             currentFocus++;
@@ -67,7 +72,9 @@ function autoFill(inp, arrName, clickCallback) {
         }
     }
     document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
+        if (e.target !== inp) {
+            closeAllLists(e.target);
+        }
     });
 }
 
@@ -103,5 +110,5 @@ database.ref("public").once("value").then( function(snapshot) {
 $(document).ready(function() {
     autoFill($("#searchBar"), "usersList", function(name) {
         user.goto(name);
-    });
+    }, true);
 });
